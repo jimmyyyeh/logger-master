@@ -14,5 +14,3 @@
         ┗┻┛    ┗┻┛
     God Bless,Never Bug
 """
-from logger_master.logger import *
-from logger_master._mongo_handler import *
