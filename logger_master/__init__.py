@@ -16,3 +16,4 @@
 """
 from logger_master.logger import *
 from logger_master._mongo_handler import *
+from logger_master._redis_handler import *

@@ -14,6 +14,7 @@
         ┗┻┛    ┗┻┛
     God Bless,Never Bug
 """
+
 import setuptools
 
 with open('README.md', 'r') as f:
