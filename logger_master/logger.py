@@ -28,6 +28,7 @@ class MongoLogger:
                  mongo_db,
                  mongo_collection,
                  terminal_displayed=True,
+                 rotation='1 day',
                  serialize=False,
                  log_format='[{time}] [{level}] [{message}]',
                  log_path=None,
@@ -36,6 +37,7 @@ class MongoLogger:
         self.mongo_instance = mongo_instance
         self.mongo_db = mongo_db
         self.mongo_collection = mongo_collection
+        self.rotation = rotation
         self.serialize = serialize
         self.terminal_displayed = terminal_displayed
         self.log_format = log_format
@@ -50,7 +52,8 @@ class MongoLogger:
         """
         return MongoHandler(mongo_instance=self.mongo_instance,
                             database=self.mongo_db,
-                            collection=self.mongo_collection)
+                            collection=self.mongo_collection,
+                            custom_func=self.custom_func)
 
     def _log_configure(self, func_name):
         """
@@ -62,9 +65,9 @@ class MongoLogger:
         if not self.terminal_displayed:
             logger.remove()
         if self.serialize:
-            logger.add(file_name, serialize=True)
+            logger.add(file_name, serialize=True, rotation=self.rotation)
 
-        logger.add(file_name, format=self.log_format)
+        logger.add(file_name, format=self.log_format, rotation=self.rotation)
 
     def _format_log_path(self, level):
         """
@@ -104,6 +107,7 @@ class RedisLogger:
                  redis_instance,
                  key_prefix,
                  terminal_displayed=True,
+                 rotation='1 day',
                  serialize=False,
                  log_format='[{time}] [{level}] [{message}]',
                  log_path=None,
@@ -111,6 +115,7 @@ class RedisLogger:
 
         self.redis_instance = redis_instance
         self.key_prefix = key_prefix
+        self.rotation = rotation
         self.serialize = serialize
         self.terminal_displayed = terminal_displayed
         self.log_format = log_format
@@ -137,9 +142,9 @@ class RedisLogger:
         if not self.terminal_displayed:
             logger.remove()
         if self.serialize:
-            logger.add(file_name, serialize=True)
+            logger.add(file_name, serialize=True, rotation=self.rotation)
 
-        logger.add(file_name, format=self.log_format)
+        logger.add(file_name, format=self.log_format, rotation=self.rotation)
 
     def _format_log_path(self, level):
         """
@@ -180,6 +185,7 @@ class FluentdLogger:
                  port=24224,
                  key_prefix='mongo',
                  terminal_displayed=True,
+                 rotation='1 day',
                  serialize=False,
                  log_format='[{time}] [{level}] [{message}]',
                  log_path=None,
@@ -188,6 +194,7 @@ class FluentdLogger:
         self.hostname = hostname
         self.port = port
         self.key_prefix = key_prefix
+        self.rotation = rotation
         self.serialize = serialize
         self.terminal_displayed = terminal_displayed
         self.log_format = log_format
@@ -215,9 +222,9 @@ class FluentdLogger:
         if not self.terminal_displayed:
             logger.remove()
         if self.serialize:
-            logger.add(file_name, serialize=True)
+            logger.add(file_name, serialize=True, rotation=self.rotation)
 
-        logger.add(file_name, format=self.log_format)
+        logger.add(file_name, format=self.log_format, rotation=self.rotation)
 
     def _format_log_path(self, level):
         """
