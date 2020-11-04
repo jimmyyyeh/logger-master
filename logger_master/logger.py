@@ -66,8 +66,8 @@ class MongoLogger:
             logger.remove()
         if self.serialize:
             logger.add(file_name, serialize=True, rotation=self.rotation)
-
-        logger.add(file_name, format=self.log_format, rotation=self.rotation)
+        else:
+            logger.add(file_name, serialize=False, format=self.log_format, rotation=self.rotation)
 
     def _format_log_path(self, level):
         """
@@ -76,7 +76,7 @@ class MongoLogger:
         :return:
         """
         if not self.log_path:
-            self.log_path = f'./log/{level}_log/{datetime.now().date()}'
+            self.log_path = f'./log/{level}_log/{datetime.now().date()}.log'
         return self.log_path
 
     def info(self, msg):
@@ -143,8 +143,8 @@ class RedisLogger:
             logger.remove()
         if self.serialize:
             logger.add(file_name, serialize=True, rotation=self.rotation)
-
-        logger.add(file_name, format=self.log_format, rotation=self.rotation)
+        else:
+            logger.add(file_name, serialize=False, format=self.log_format, rotation=self.rotation)
 
     def _format_log_path(self, level):
         """
@@ -153,7 +153,7 @@ class RedisLogger:
         :return:
         """
         if not self.log_path:
-            self.log_path = f'./log/{level}_log/{datetime.now().date()}'
+            self.log_path = f'./log/{level}_log/{datetime.now().date()}.log'
         return self.log_path
 
     def info(self, msg):
@@ -223,8 +223,8 @@ class FluentdLogger:
             logger.remove()
         if self.serialize:
             logger.add(file_name, serialize=True, rotation=self.rotation)
-
-        logger.add(file_name, format=self.log_format, rotation=self.rotation)
+        else:
+            logger.add(file_name, serialize=False, format=self.log_format, rotation=self.rotation)
 
     def _format_log_path(self, level):
         """
@@ -233,7 +233,7 @@ class FluentdLogger:
         :return:
         """
         if not self.log_path:
-            self.log_path = f'./log/{level}_log/{datetime.now().date()}'
+            self.log_path = f'./log/{level}_log/{datetime.now().date()}.log'
         return self.log_path
 
     def info(self, msg):
